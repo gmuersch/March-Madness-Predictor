@@ -28,7 +28,7 @@ In this file I defined two functions that scrapes team stats and regular season 
 Since they are written as functions we can reuse the code to gather the data for any year we want saving it to a csv file. 
 
 
-**model.py:
+**model.py:**
 
 This script reads our scraped data and turns them into pandas dataframes. The functions match_stats_reg_season() looks at each matchup and calculates the difference in stats between the two teams(Team A stats - Team B stats) This makes it so our model only has to look at a single stat line and determine whether Team A wins or loses
 
