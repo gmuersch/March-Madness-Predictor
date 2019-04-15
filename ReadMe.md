@@ -8,7 +8,6 @@ For each season we have data on 351 teams and nearly 6,000 basketball games.
 After collecting and cleaning this data, I used it as a training set to train a logistical regression model using python's sklearn module. 
 Once the model is trained we can ask it to predict the holdout data, in this case any March Madness tournament.
 
-
 The end goal for this project is to consider who my model thinks will win and how confident it is, then compare that to vegas betting odds in order to find games where my model thinks the bet has high value.
 With sports betting moving through legislation to be legalized in more and more states, the market for it will grow and
 having an edge like this would give a massive advantage over the average better.
@@ -45,6 +44,10 @@ This script uses the pickle module to call our trained regression model from the
 **Bracket_Games19.csv:**
 
 This file holds our models predicted tournament results.
+
+**Prediction_Probabilities.csv:**
+
+This csv file holds each matchup of our predicted bracket along with the probability Team A will win (as predicted by the model)
 
 ### Round of 64: 
 
