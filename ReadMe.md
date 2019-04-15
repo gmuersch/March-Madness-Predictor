@@ -2,52 +2,58 @@
 
 The aim of this project is to use machine learning models to predict sports games
 
-In this version we will be predicting and filling out NCAA March Madness Tournament brackets
-
-For each season we have data on 351 teams and nearly 6,000 basketball games.
-After collecting and cleaning this data, I used it as a training set to train a logistical regression model using python's sklearn module. 
-Once the model is trained we can ask it to predict the holdout data, in this case any March Madness tournament.
-
-The end goal for this project is to consider who my model thinks will win and how confident it is, then compare that to vegas betting odds in order to find games where my model thinks the bet has high value.
 With sports betting moving through legislation to be legalized in more and more states, the market for it will grow and
 having an edge like this would give a massive advantage over the average better.
 
-In this first rendition I will be using 4 features to train the model (strength of schedule, field goal %, three point % and free throw %). For right now this feature set will be pretty basic as I focus on creating the code that will gather, clean and display the data. In the future I will mess around with advanced statistics and other factors in hopes of increasing the predictive power. Even still, it will be interesting to see what kind of predictions we will get with a somewhat basic feature set.
+In this version I will be predicting and filling out NCAA March Madness Tournament brackets using a logistic regression model
+
+For each season I have collected data on 351 teams and nearly 6,000 basketball games. (All data was scraped from https://www.sports-reference.com/)
+
+After collecting roughly 11,000 regular season basketball games played over the past 2 years, I used it to train a logistical regression model using python's sklearn module. 
+
+Once the model was trained I used it to predict the holdout data, in this case the 2019 March Madness tournament. I attached all the coding involved in this project in three seperate files, along with the models final predicted bracket. 
+
+In this first rendition I will be using 4 features to train the model (strength of schedule, field goal %, three point % and free throw %). This feature set is relatively basic as I focused on creating the code that gathered, cleaned and displayed the data. In future updates I will test out using other common basketball statistics along with advanced metrics (efficiency ratings, true shooting percentages, pace, etc) in hopes of increasing the models predictive power. Despite only using basic statistcs, my model still performed quite well in making predictions and was well inside the 95th percentile of all brackets for 2019. 
 
 **Project Files**
 
 Currently this project uses 3 seperate scripts: data_scraper.py, model.py and predictor.py 
 
+Aditionally, there are 2 csv files holding results: 
 I will briefly mention what each script accomplishes below
 
 
 **Data_Scraper.py:**
 
 In this file I defined two functions that scrapes team stats and regular season game results respectively. 
-Since they are written as functions we can reuse the code to gather the data for any year we want saving it to a csv file. 
+Since they are written as functions I can reuse the code to gather the data for any year I need, saving it to a csv file. 
 
 
 **model.py:**
 
-This script reads our scraped data and turns them into pandas dataframes. The functions match_stats_reg_season() looks at each matchup and calculates the difference in stats between the two teams(Team A stats - Team B stats) This makes it so our model only has to look at a single stat line and determine whether Team A wins or loses
+This script reads the scraped data and turns them into pandas dataframes. The functions match_stats_reg_season() looks at each matchup and calculates the difference in stats between the two teams(Team A stats - Team B stats) This makes it so the model only has to look at a single stat line and determine whether Team A wins or loses
 
 
-After calculating the match stats of each regular season game, we use this data to train our logistic regression model and can now predict the tournament.
+After calculating the match stats of each regular season game, I used this data to train the logistic regression model and can now predict the tournament.
 
 
 **predictor.py:**
 
-This script uses the pickle module to call our trained regression model from the model.py. I defined the predict_tournament() function that reads and appends each round of the tournament, predicting the winners and advancing them in the tournament. This function loops over each newly predicted round until the entire tournament is predicted and written to a csv file 
-
-## Tournament Results and Statistics:
+This script uses the pickle module to call my trained regression model from the model.py. I defined the predict_tournament() function that reads and appends each round of the tournament, predicting the winners and advancing them in the tournament. This function loops over each newly predicted round until the entire tournament is predicted and written to a csv file 
 
 **Bracket_Games19.csv:**
 
-This file holds our models predicted tournament results.
+This file holds my models predicted tournament results.
 
 **Prediction_Probabilities.csv:**
 
-This csv file holds each matchup of our predicted bracket along with the probability Team A will win (as predicted by the model)
+This csv file holds each matchup of my predicted bracket along with the probability of Team A winning as predicted by the model
+
+Now that we have a percentage chance of victory for each matchup, I can calculate the the money lines for each game and compare them to actual money lines the public is betting on. 
+
+In a future update I will calculate and compare my models predicted money lines to vegas money lines. After comparing each matchup, the function will pick out the games it calculated to have high value compared to the public opinion. We can then track the profits or losses the model would generate if it were to actually execute these bets.
+
+## Tournament Results and Statistics:
 
 ### Round of 64: 
 
@@ -65,7 +71,7 @@ Of the 16 teams that advanced, the model predicted 15 of them correctly (the onl
 
 The model was 1/1 on upsets predicted (#5 Auburn over #4 Kansas) but vegas also favored Auburn so its not much of an upset
 
-Due to the lack of underdog victories in this round our model was extremely accurate (The team favored by vegas won every game, but did not necessarily cover the point spread)
+Due to the lack of underdog victories in this round my model was extremely accurate (The team favored by vegas won every game, but did not necessarily cover the point spread)
 
 ### Sweet Sixteen:
 
